@@ -8,6 +8,74 @@
 
 class ACCP_Custom_Customizer_Postmeta {
 
+  /**
+	 * Meta key
+	 *
+	 * @var string
+	 */
+	public $meta_key;
+
+  /**
+	 * Plural version of meta key
+	 *
+	 * @var string
+	 */
+	public $plural_meta_key;
+
+  /**
+	 * Meta display name
+	 *
+	 * @var string
+	 */
+	public $meta_name;
+
+  /**
+	 * Field type (text, select, etc...)
+	 *
+	 * @var string
+	 */
+	public $field_type;
+
+  /**
+	 * Post types (Only single post type supported for now)
+	 *
+	 * @var array
+	 */
+	public $post_types;
+
+  /**
+	 * Current post type
+	 *
+	 * @var string
+	 */
+	public $current_post_type;
+
+  /**
+	 * Setting ID pattern
+	 *
+	 * @var string
+	 */
+	public $setting_id_pattern;
+
+  /**
+	 * Selector
+	 *
+	 * @var string
+	 */
+	public $selector;
+
+  /**
+	 * Input arguments
+	 *
+	 * @var array
+	 */
+	public $input_args;
+
+  /**
+	 * Post meta constructor.
+	 *
+	 * @access public
+	 */
   public function __construct( $args = array() ){
     $keys = array_keys( get_object_vars( $this ) );
 		foreach ( $keys as $key ) {
@@ -15,25 +83,34 @@ class ACCP_Custom_Customizer_Postmeta {
 				$this->$key = $args[ $key ];
 			}
 		}
+
     // Setup Variables
-    $this->setting_id_pattern = '^postmeta\[(.+?)]\[(\d+)]\['.$this->meta_slug.']$';
-    $this->feature = $this->meta_slug;
-    $this->meta_key = $this->meta_slug;
+    $this->setting_id_pattern = '^postmeta\[(.+?)]\[(\d+)]\['.$this->meta_key.']$';
+    // Set post type (currently only supporting 1 type, revisit this)
+    $this->current_post_type = $this->post_types[0];
+
+    // Make everything happen
+    $this->add_post_type_support();
+    $this->register_postmeta();
+    $this->inject_into_loop();
+    $this->add_editor_control();
+    $this->regiser_partial();
+    $this->recognize_partial();
 
   }
 
   // Add post type support for preambles.
   function add_post_type_support(){
     add_action( 'init', function() {
-    	add_post_type_support( 'post', FEATURE );
+    	add_post_type_support( 'post', $this->meta_key );
     }, 10 );
   }
 
   // Register the preamble postmeta.
   function register_postmeta(){
     add_action( 'customize_posts_register_meta', function ( \WP_Customize_Posts $customize_posts ) {
-      foreach ( get_post_types_by_support( FEATURE ) as $post_type ) {
-        $customize_posts->register_post_type_meta( $post_type, META_KEY, array(
+      foreach ( get_post_types_by_support( $this->meta_key ) as $post_type ) {
+        $customize_posts->register_post_type_meta( $post_type, $this->meta_key, array(
           'transport' => 'postMessage',
           'sanitize_callback' => function( $value ) {
             return wp_kses_post( $value );
@@ -47,10 +124,10 @@ class ACCP_Custom_Customizer_Postmeta {
   function inject_into_loop(){
     add_action( 'the_post', function( $post, $wp_query ) {
       if ( $wp_query->is_main_query() && ! $wp_query->is_singular() && $wp_query->in_the_loop ) {
-        $class = sprintf( 'post-preamble post-preamble-%d', $post->ID );
+        $class = sprintf( 'post-%s post-%s-%d', $this->meta_key, $post->ID );
         ?>
         <section class="<?php echo esc_attr( $class ) ?>">
-          <?php echo wp_kses_post( get_post_meta( $post->ID, META_KEY, true ) ) ?>
+          <?php echo wp_kses_post( get_post_meta( $post->ID, $this->meta_key, true ) ) ?>
         </section>
         <?php
       }
@@ -65,9 +142,9 @@ class ACCP_Custom_Customizer_Postmeta {
     	<script>
     	wp.customize.bind( 'ready', function() {
     		var api = wp.customize,
-    			metaKey = <?php echo wp_json_encode( META_KEY ) ?>,
-    			feature = <?php echo wp_json_encode( FEATURE ) ?>,
-    			controlLabel = <?php echo wp_json_encode( __( 'Preamble', 'customize-post-preambles' ) ) ?>;
+    			metaKey = <?php echo wp_json_encode( $this->meta_key ) ?>,
+    			feature = <?php echo wp_json_encode( $this->meta_key ) ?>,
+    			controlLabel = <?php echo wp_json_encode( __( $this->meta_name, 'customize-'.$this->current_post_type.'-'.$this->plural_meta_key ) ) ?>;
     		api.section.bind( 'add', function( section ) {
     			var control, customizeId, postTypeObj;
     			if ( ! section.extended( wp.customize.Posts.PostSection ) ) {
@@ -106,15 +183,12 @@ class ACCP_Custom_Customizer_Postmeta {
     	wp_add_inline_script( 'customize-posts', $js );
     } );
     // Style the partial.
-    add_action( 'wp_print_styles', function() {
+    // add_action( 'wp_print_styles', function() {
     	?>
-    	<style>
-    		section.post-preamble {
-    			font-style: italic;
-    		}
-    	</style>
-    	<?php
-    } );
+    	// <style>
+    	// </style>
+    	<?
+    // } );
   }
 
   // Dynamically register the partial when the setting is present.
@@ -128,7 +202,7 @@ class ACCP_Custom_Customizer_Postmeta {
     	<script>
     	( function( api ) {
     		var registerPartial,
-    			idPattern = new RegExp( <?php echo wp_json_encode( SETTING_ID_PATTERN ) ?> );
+    			idPattern = new RegExp( <?php echo wp_json_encode( $this->setting_id_pattern ); ?> );
     		registerPartial = function( setting ) {
     			var ensuredPartial, partialId, postId, matches;
     			matches = setting.id.match( idPattern );
@@ -143,7 +217,7 @@ class ACCP_Custom_Customizer_Postmeta {
     			}
     			ensuredPartial = new api.selectiveRefresh.partialConstructor.deferred( partialId, {
     				params: {
-    					selector: '.post-preamble-' + String( postId ),
+    					selector: <?php echo wp_json_encode( '.'.$this->current_post_type.'-'.$this->meta_key.'-' ); ?> + String( postId ),
     					settings: [ setting.id ],
     					containerInclusive: false,
     					fallbackRefresh: false
@@ -165,14 +239,14 @@ class ACCP_Custom_Customizer_Postmeta {
   // Recognize the partial.
   function recognize_partial(){
     add_filter( 'customize_dynamic_partial_args', function( $args, $id ) {
-    	if ( preg_match( '#' . SETTING_ID_PATTERN . '#', $id, $matches ) ) {
+    	if ( preg_match( '#' . $this->setting_id_pattern . '#', $id, $matches ) ) {
     		$post_id = $matches[2];
     		$args = array_merge(
     			false === $args ? array() : $args,
     			array(
     				'container_inclusive' => false,
     				'render_callback' => function() use ( $post_id ) {
-    					echo wp_kses_post( get_post_meta( $post_id, META_KEY, true ) );
+    					echo wp_kses_post( get_post_meta( $post_id, $this->meta_key, true ) );
     				},
     			)
     		);
