@@ -65,6 +65,13 @@ class ACCP_Custom_Customizer_Postmeta {
 	public $input_args;
 
   /**
+	 * Control display priority
+	 *
+	 * @var int
+	 */
+	public $display_priority;
+
+  /**
 	 * Post meta constructor.
 	 *
 	 * @access public
@@ -95,7 +102,7 @@ class ACCP_Custom_Customizer_Postmeta {
   // Add post type support for preambles.
   function add_post_type_support(){
     add_action( 'init', function() {
-    	add_post_type_support( 'post', $this->meta_key );
+    	add_post_type_support( $this->current_post_type, $this->meta_key );
     }, 10 );
   }
 

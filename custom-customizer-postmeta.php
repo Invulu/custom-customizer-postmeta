@@ -28,6 +28,23 @@ $args = array(
 	'field_type' => 'text'
 );
 $accp = new ACCP_Custom_Customizer_Postmeta( $args );
+$args2 = array(
+	'meta_key' => 'gpp_test2',
+	'plural_meta_key' => 'gpp_test2s',
+	'meta_name' => 'GPP Test 2',
+	'post_types' => array('post'),
+	'field_type' => 'text'
+);
+$accp2 = new ACCP_Custom_Customizer_Postmeta( $args2 );
+$args3 = array(
+	'meta_key' => 'gpp_test3',
+	'plural_meta_key' => 'gpp_test3s',
+	'meta_name' => 'GPP Test 3',
+	'post_types' => array('team'),
+	'field_type' => 'text'
+);
+$accp3 = new ACCP_Custom_Customizer_Postmeta( $args3 );
+
 
 /**
  * Determine whether the dependencies are satisfied for the plugin.
