@@ -6,7 +6,6 @@
  *
  * @package CustomCustomizerPostmeta
  */
-namespace CustomCustomizerPostmeta ;
 
 // Check for required core version
 if ( ! has_required_core_version() ) {
@@ -14,17 +13,21 @@ if ( ! has_required_core_version() ) {
 	return;
 }
 
-// Check for customizer
-if ( ! isset( $wp_customize->posts ) ) {
-	return;
-}
-
 // Load text domain
 load_plugin_textdomain( 'customize-posts' );
 
-
 // Require Files
 require_once dirname( __FILE__ ) . '/class-custom-customizer-postmeta.php';
+
+//Create test and run
+$args = array(
+	'meta_key' => 'gpp_test',
+	'plural_meta_key' => 'gpp_tests',
+	'meta_name' => 'GPP Test',
+	'post_types' => array('post'),
+	'field_type' => 'text'
+);
+$accp = new ACCP_Custom_Customizer_Postmeta( $args );
 
 /**
  * Determine whether the dependencies are satisfied for the plugin.

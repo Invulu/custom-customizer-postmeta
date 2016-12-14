@@ -58,13 +58,6 @@ class ACCP_Custom_Customizer_Postmeta {
 	public $setting_id_pattern;
 
   /**
-	 * Selector
-	 *
-	 * @var string
-	 */
-	public $selector;
-
-  /**
 	 * Input arguments
 	 *
 	 * @var array
@@ -94,7 +87,7 @@ class ACCP_Custom_Customizer_Postmeta {
     $this->register_postmeta();
     $this->inject_into_loop();
     $this->add_editor_control();
-    $this->regiser_partial();
+    $this->register_partial();
     $this->recognize_partial();
 
   }
@@ -184,10 +177,7 @@ class ACCP_Custom_Customizer_Postmeta {
     } );
     // Style the partial.
     // add_action( 'wp_print_styles', function() {
-    	?>
-    	// <style>
-    	// </style>
-    	<?
+      // Output Styles Here
     // } );
   }
 
