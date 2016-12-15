@@ -20,11 +20,7 @@ function accp_run_plugin(){
 		return;
 	}
 
-	// Check for customize posts plugin
-	if ( ! is_plugin_active( 'customize-posts/customize-posts.php' ) ) {
-		add_action( 'admin_notices', 'show_customize_posts_dependency_failure' );
-		return;
-	}
+	add_action( 'admin_init', 'check_plugin_dependencies' );
 
 	// Load text domain
 	load_plugin_textdomain( 'custom-customizer-postmeta' );
@@ -40,7 +36,7 @@ function accp_run_plugin(){
 	}
 
 }
-add_action( 'admin_init', 'accp_run_plugin' );
+accp_run_plugin();
 
 /**
  * Determine whether the dependencies are satisfied for the plugin.
@@ -91,5 +87,18 @@ function get_post_meta_information() {
 	$meta_array = json_decode( $meta_string, TRUE );
 
 	return $meta_array;
+
+}
+
+/**
+ * Check for necessary plugins
+ *
+ */
+function check_plugin_dependencies() {
+
+	// Check for customize posts plugin
+	if ( ! is_plugin_active( 'customize-posts/customize-posts.php' ) ) {
+		add_action( 'admin_notices', 'show_customize_posts_dependency_failure' );
+	}
 
 }
