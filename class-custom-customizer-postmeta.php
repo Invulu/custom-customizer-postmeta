@@ -158,7 +158,8 @@ class ACCP_Custom_Customizer_Postmeta {
     			control = new api.controlConstructor.dynamic( customizeId, {
     				params: {
     					section: section.id,
-    					label: controlLabel,
+              priority: <?php echo $this->display_priority; ?>,
+              label: controlLabel,
     					active: true,
     					settings: {
     						'default': customizeId

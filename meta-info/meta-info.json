@@ -1,23 +1,50 @@
 {
-  "gpp_test" : {
-    "meta_key" : "gpp_test",
-    "plural_meta_key" : "gpp_tests",
-    "meta_name" : "GPP Test",
-    "post_types" : [ "post" ],
-    "field_type" : "text"
-  },
-  "gpp_test2" : {
-    "meta_key" : "gpp_test2",
-    "plural_meta_key" : "gpp_test2s",
-    "meta_name" : "GPP Test2",
-    "post_types" : [ "post" ],
-    "field_type" : "text"
-  },
-  "gpp_test3" : {
-    "meta_key" : "gpp_test3",
-    "plural_meta_key" : "gpp_test3s",
-    "meta_name" : "GPP Test3",
+  "gpp_team_title" : {
+    "meta_key" : "gpp_team_title",
+    "plural_meta_key" : "gpp_team_titles",
+    "meta_name" : "Member Title",
     "post_types" : [ "team" ],
-    "field_type" : "text"
+    "field_type" : "text",
+    "display_priority" : 200
+  },
+  "gpp_team_link" : {
+    "meta_key" : "gpp_team_link",
+    "plural_meta_key" : "gpp_team_links",
+    "meta_name" : "Personal Link",
+    "post_types" : [ "team" ],
+    "field_type" : "text",
+    "display_priority" : 210
+  },
+  "gpp_team_email" : {
+    "meta_key" : "gpp_team_email",
+    "plural_meta_key" : "gpp_team_emails",
+    "meta_name" : "Email Address",
+    "post_types" : [ "team" ],
+    "field_type" : "text",
+    "display_priority" : 220
+  },
+  "gpp_team_phone" : {
+    "meta_key" : "gpp_team_phone",
+    "plural_meta_key" : "gpp_team_phones",
+    "meta_name" : "Phone Number",
+    "post_types" : [ "team" ],
+    "field_type" : "text",
+    "display_priority" : 230
+  },
+  "gpp_team_twitter" : {
+    "meta_key" : "gpp_team_twitter",
+    "plural_meta_key" : "gpp_team_links",
+    "meta_name" : "Twitter User",
+    "post_types" : [ "team" ],
+    "field_type" : "text",
+    "display_priority" : 240
+  },
+  "gpp_team_linkedin" : {
+    "meta_key" : "gpp_team_linkedin",
+    "plural_meta_key" : "gpp_team_linkedins",
+    "meta_name" : "LinkedIn Profile URL",
+    "post_types" : [ "team" ],
+    "field_type" : "text",
+    "display_priority" : 240
   }
 }
