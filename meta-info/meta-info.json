@@ -1,0 +1,23 @@
+{
+  "gpp_test" : {
+    "meta_key" : "gpp_test",
+    "plural_meta_key" : "gpp_tests",
+    "meta_name" : "GPP Test",
+    "post_types" : [ "post" ],
+    "field_type" : "text"
+  },
+  "gpp_test2" : {
+    "meta_key" : "gpp_test2",
+    "plural_meta_key" : "gpp_test2s",
+    "meta_name" : "GPP Test2",
+    "post_types" : [ "post" ],
+    "field_type" : "text"
+  },
+  "gpp_test3" : {
+    "meta_key" : "gpp_test3",
+    "plural_meta_key" : "gpp_test3s",
+    "meta_name" : "GPP Test3",
+    "post_types" : [ "team" ],
+    "field_type" : "text"
+  }
+}

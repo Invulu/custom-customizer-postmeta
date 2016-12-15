@@ -77,6 +77,7 @@ class ACCP_Custom_Customizer_Postmeta {
 	 * @access public
 	 */
   public function __construct( $args = array() ){
+    error_log(print_r($args,true));
     $keys = array_keys( get_object_vars( $this ) );
 		foreach ( $keys as $key ) {
 			if ( isset( $args[ $key ] ) ) {

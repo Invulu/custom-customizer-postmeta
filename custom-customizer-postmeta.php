@@ -1,52 +1,46 @@
 <?php
 /**
  * Plugin Name: Custom Customizer Postmeta
- * Author: Jesse Lee, Organic Themes (based on Weston Ruter's example code)
+ * Plugin URI: https://github.com/Invulu/custom-customizer-postmeta
+ * Author: Jesse Lee, Organic Themes - Based on Weston Ruter's example code
  * Description: Plugin to add custom postmeta fields to posts and the customizer via the Customize Posts plugin by Weston Ruter.
  *
  * @package CustomCustomizerPostmeta
  */
 
-// Check for required core version
-if ( ! has_required_core_version() ) {
-	add_action( 'admin_notices', array( $this, 'show_core_version_dependency_failure' ) );
-	return;
+/**
+ * Run the plugin
+ *
+ */
+function accp_run_plugin(){
+
+	// Check for required core version
+	if ( ! has_required_core_version() ) {
+		add_action( 'admin_notices', 'show_core_version_dependency_failure' );
+		return;
+	}
+
+	// Check for customize posts plugin
+	if ( ! is_plugin_active( 'customize-posts/customize-posts.php' ) ) {
+		add_action( 'admin_notices', 'show_customize_posts_dependency_failure' );
+		return;
+	}
+
+	// Load text domain
+	load_plugin_textdomain( 'custom-customizer-postmeta' );
+
+	// Require Files
+	require_once dirname( __FILE__ ) . '/class-custom-customizer-postmeta.php';
+
+	$meta_keys = get_post_meta_information();
+
+	// Create meta
+	foreach( $meta_keys as $meta_key ) {
+		$accp = new ACCP_Custom_Customizer_Postmeta( $meta_key );
+	}
+
 }
-
-// Load text domain
-load_plugin_textdomain( 'customize-posts' );
-
-// Require Files
-require_once dirname( __FILE__ ) . '/class-custom-customizer-postmeta.php';
-
-//Initial meta values
-$meta_keys = array(
-	array(
-		'meta_key' => 'gpp_test',
-		'plural_meta_key' => 'gpp_tests',
-		'meta_name' => 'GPP Test',
-		'post_types' => array('post'),
-		'field_type' => 'text'
-	),
-	array(
-		'meta_key' => 'gpp_test2',
-		'plural_meta_key' => 'gpp_test2s',
-		'meta_name' => 'GPP Test 2',
-		'post_types' => array('post'),
-		'field_type' => 'text'
-	),
-	array(
-		'meta_key' => 'gpp_test3',
-		'plural_meta_key' => 'gpp_test3s',
-		'meta_name' => 'GPP Test 3',
-		'post_types' => array('team'),
-		'field_type' => 'text'
-	)
-);
-// Create meta
-foreach( $meta_keys as $args ) {
-	$accp = new ACCP_Custom_Customizer_Postmeta( $args );
-}
+add_action( 'admin_init', 'accp_run_plugin' );
 
 /**
  * Determine whether the dependencies are satisfied for the plugin.
@@ -59,12 +53,43 @@ function has_required_core_version() {
 }
 
 /**
- * Show error dependency failure notice.
+ * Show error dependency failure notice for WordPress Core version.
  */
 function show_core_version_dependency_failure() {
 	?>
 	<div class="error">
-		<p><?php esc_html_e( 'Customize Posts requires WordPress 4.7 and should have the Customize Setting Validation plugin active.', 'customize-posts' ); ?></p>
+		<p><?php esc_html_e( 'Custom Customizer Postmeta requires WordPress 4.7.', 'custom-customizer-postmeta' ); ?></p>
 	</div>
 	<?php
+}
+
+/**
+ * Show error dependency failure notice for Customize Posts plugin.
+ */
+function show_customize_posts_dependency_failure() {
+	?>
+	<div class="error">
+		<p>
+		<?php esc_html_e( 'Custom Customizer Postmeta requires the ', 'custom-customizer-postmeta');
+		echo '<a href="https://github.com/xwp/wp-customize-posts">Customize Posts</a>';
+		esc_html_e( ' plugin to be active.', 'custom-customizer-postmeta' ); ?>
+		</p>
+	</div>
+	<?php
+}
+
+/**
+ * Get post meta information
+ * (Temporary solution for now)
+ *
+ * @return array
+ */
+function get_post_meta_information() {
+
+	$json_path = plugin_dir_path( __FILE__ ) . 'meta-info/meta-info.json';
+	$meta_string = file_get_contents( $json_path );
+	$meta_array = json_decode( $meta_string, TRUE );
+
+	return $meta_array;
+
 }
