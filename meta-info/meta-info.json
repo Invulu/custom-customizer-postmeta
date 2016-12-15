@@ -46,5 +46,20 @@
     "post_types" : [ "team" ],
     "field_type" : "text",
     "display_priority" : 240
+  },
+  "gpp_slide_position_hor" : {
+    "meta_key" : "gpp_slide_position_hor",
+    "plural_meta_key" : "gpp_slide_position_hors",
+    "meta_name" : "Content Horizontal Position",
+    "post_types" : [ "post" ],
+    "field_type" : "select",
+    "display_priority" : 220,
+    "input_args" : {
+      "choices" : [
+        { "text":"Left", "value":"left" },
+        { "text":"Middle", "value":"middle" },
+        { "text":"Right", "value":"right" }
+      ]
+    }
   }
 }

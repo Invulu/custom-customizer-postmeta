@@ -65,6 +65,20 @@ class ACCP_Custom_Customizer_Postmeta {
 	public $input_args;
 
   /**
+   * Choices for 'select' inputs
+   *
+   * @var string
+   */
+  public $choices;
+
+  /**
+   * Choices JSON
+   *
+   * @var string
+   */
+  public $choices_json;
+
+  /**
 	 * Control display priority
 	 *
 	 * @var int
@@ -88,6 +102,12 @@ class ACCP_Custom_Customizer_Postmeta {
     $this->setting_id_pattern = '^postmeta\[(.+?)]\[(\d+)]\['.$this->meta_key.']$';
     // Set post type (currently only supporting 1 type, revisit this)
     $this->current_post_type = $this->post_types[0];
+
+    // If select input, setup choices
+    if ( $this->field_type == 'select' ) {
+        $this->choices = $this->input_args['choices'];
+    }
+
 
     // Make everything happen
     $this->add_post_type_support();
@@ -144,7 +164,9 @@ class ACCP_Custom_Customizer_Postmeta {
     		var api = wp.customize,
     			metaKey = <?php echo wp_json_encode( $this->meta_key ) ?>,
     			feature = <?php echo wp_json_encode( $this->meta_key ) ?>,
-    			controlLabel = <?php echo wp_json_encode( __( $this->meta_name, 'customize-'.$this->current_post_type.'-'.$this->plural_meta_key ) ) ?>;
+          field_type = <?php echo wp_json_encode( $this->field_type ) ?>,
+          choices = <?php echo wp_json_encode($this->choices ) ?>,
+          controlLabel = <?php echo wp_json_encode( __( $this->meta_name, 'customize-'.$this->current_post_type.'-'.$this->plural_meta_key ) ) ?>;
     		api.section.bind( 'add', function( section ) {
     			var control, customizeId, postTypeObj;
     			if ( ! section.extended( wp.customize.Posts.PostSection ) ) {
@@ -164,7 +186,8 @@ class ACCP_Custom_Customizer_Postmeta {
     					settings: {
     						'default': customizeId
     					},
-    					field_type: 'text',
+              <?php if ( $this->field_type == 'select' ) { ?>choices: choices,<?php } ?>
+    					field_type: field_type,
     					input_attrs: {
     						'data-customize-setting-link': customizeId
     					}

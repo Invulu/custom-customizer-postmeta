@@ -30,10 +30,14 @@ function accp_run_plugin(){
 
 	$meta_keys = get_post_meta_information();
 
-	// Create meta
-	foreach( $meta_keys as $meta_key ) {
-		$accp = new ACCP_Custom_Customizer_Postmeta( $meta_key );
-	}
+	// error_log(print_r($meta_keys,true));
+	if ( $meta_keys ) {
+		// Create meta
+		foreach( $meta_keys as $meta_key ) {
+			$accp = new ACCP_Custom_Customizer_Postmeta( $meta_key );
+		}
+	} else { return; }
+
 
 }
 accp_run_plugin();
