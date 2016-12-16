@@ -3,6 +3,7 @@
  * Plugin Name: Custom Customizer Postmeta
  * Plugin URI: https://github.com/Invulu/custom-customizer-postmeta
  * Author: Jesse Lee, Organic Themes - Based on Weston Ruter's example code
+ * Author URI: https://organicthemes.com
  * Description: Plugin to add custom postmeta fields to posts and the customizer via the Customize Posts plugin by Weston Ruter.
  *
  * @package CustomCustomizerPostmeta
