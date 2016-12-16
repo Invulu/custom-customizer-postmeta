@@ -28,16 +28,18 @@ function accp_run_plugin(){
 	// Require Files
 	require_once dirname( __FILE__ ) . '/class-custom-customizer-postmeta.php';
 
+	// Retrieve and parse JSON to create post meta fields
 	$meta_keys = get_post_meta_information();
 
-	// error_log(print_r($meta_keys,true));
+	// If valid JSON returned, iterate over meta_keys
 	if ( $meta_keys ) {
 		// Create meta
 		foreach( $meta_keys as $meta_key ) {
 			$accp = new ACCP_Custom_Customizer_Postmeta( $meta_key );
 		}
-	} else { return; }
-
+	}
+	// Else abort
+	else { return; }
 
 }
 accp_run_plugin();

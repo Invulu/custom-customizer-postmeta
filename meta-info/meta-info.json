@@ -72,5 +72,13 @@
     "input_args" : {
       "default" : 1
     }
+  },
+  "gpp_slide_video" : {
+    "meta_key" : "gpp_slide_video",
+    "plural_meta_key" : "gpp_slide_videos",
+    "meta_name" : "Featured Video Embed Code",
+    "post_types" : [ "post" ],
+    "field_type" : "post_editor",
+    "display_priority" : 240
   }
 }

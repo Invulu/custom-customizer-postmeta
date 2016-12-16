@@ -100,6 +100,13 @@ class ACCP_Custom_Customizer_Postmeta {
 	public $transport;
 
   /**
+	 * Control constructor type
+	 *
+	 * @var string
+	 */
+	public $control_constructor_type;
+
+  /**
 	 * Post meta constructor.
 	 *
 	 * @access public
@@ -118,6 +125,12 @@ class ACCP_Custom_Customizer_Postmeta {
 		}
 
     // Setup Variables
+    if ( $this->field_type == 'post_editor' ) {
+      $this->control_constructor_type = 'post_editor';
+    } else {
+      $this->control_constructor_type = 'dynamic';
+    }
+    error_log($this->control_constructor_type);
     $this->setting_id_pattern = '^postmeta\[(.+?)]\[(\d+)]\['.$this->meta_key.']$';
     // Set post type (currently only supporting 1 type, revisit this)
     $this->current_post_type = $this->post_types[0];
@@ -133,7 +146,6 @@ class ACCP_Custom_Customizer_Postmeta {
       $this->checkbox_default = $this->input_args['default'] ? 1 : 0;
       error_log($this->checkbox_default);
     }
-
 
     // Make everything happen
     $this->add_post_type_support();
@@ -203,21 +215,23 @@ class ACCP_Custom_Customizer_Postmeta {
     				return;
     			}
     			customizeId = 'postmeta[' + section.params.post_type + '][' + section.params.post_id + '][' + metaKey + ']';
-    			control = new api.controlConstructor.dynamic( customizeId, {
+    			control = new api.controlConstructor.<?php echo $this->control_constructor_type ?>( customizeId, {
     				params: {
     					section: section.id,
               priority: <?php echo $this->display_priority; ?>,
-              label: controlLabel,
     					active: true,
     					settings: {
     						'default': customizeId
     					},
               field_type: field_type,
               <?php if ( $this->field_type == 'select' ) { ?>choices: choices,<?php } ?>
+              <?php if ( $this->control_constructor_type == 'dynamic' ) { ?>
               input_attrs: {
     						'data-customize-setting-link': customizeId,
                 <?php if ( $this->field_type == 'checkbox' ) { ?>default: <?php echo $this->checkbox_default.','; } ?>
-    					}
+    					},
+              <?php } ?>
+              label: controlLabel
     				}
     			} );
     			// Override preview trying to de-activate control not present in preview context. See WP Trac #37270.
