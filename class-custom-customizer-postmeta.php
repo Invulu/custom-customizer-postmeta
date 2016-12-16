@@ -72,6 +72,13 @@ class ACCP_Custom_Customizer_Postmeta {
   public $choices;
 
   /**
+   * Default for checkbox input
+   *
+   * @var boolean
+   */
+  public $checkbox_default;
+
+  /**
    * Choices JSON
    *
    * @var string
@@ -106,6 +113,13 @@ class ACCP_Custom_Customizer_Postmeta {
     // If select input, setup choices
     if ( $this->field_type == 'select' ) {
         $this->choices = $this->input_args['choices'];
+    }
+
+    // If checkbox input, set default
+    if ( $this->field_type == 'checkbox' ) {
+      error_log($this->input_args['default']);
+      $this->checkbox_default = $this->input_args['default'] ? 1 : 0;
+      error_log($this->checkbox_default);
     }
 
 
@@ -186,10 +200,11 @@ class ACCP_Custom_Customizer_Postmeta {
     					settings: {
     						'default': customizeId
     					},
+              field_type: field_type,
               <?php if ( $this->field_type == 'select' ) { ?>choices: choices,<?php } ?>
-    					field_type: field_type,
-    					input_attrs: {
-    						'data-customize-setting-link': customizeId
+              input_attrs: {
+    						'data-customize-setting-link': customizeId,
+                <?php if ( $this->field_type == 'checkbox' ) { ?>default: <?php echo $this->checkbox_default.','; } ?>
     					}
     				}
     			} );

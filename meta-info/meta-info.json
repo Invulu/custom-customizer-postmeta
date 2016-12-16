@@ -61,5 +61,16 @@
         { "text":"Right", "value":"right" }
       ]
     }
+  },
+  "gpp_slide_content" : {
+    "meta_key" : "gpp_slide_content",
+    "plural_meta_key" : "gpp_slide_contents",
+    "meta_name" : "Hide content on slide image?",
+    "post_types" : [ "post" ],
+    "field_type" : "checkbox",
+    "display_priority" : 220,
+    "input_args" : {
+      "default" : 1
+    }
   }
 }
