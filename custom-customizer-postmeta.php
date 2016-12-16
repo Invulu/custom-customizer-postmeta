@@ -39,7 +39,10 @@ function accp_run_plugin(){
 		}
 	}
 	// Else abort
-	else { return; }
+	else {
+		add_action( 'admin_notices', 'show_invalid_json_failure' );
+		return;
+	}
 
 }
 accp_run_plugin();
@@ -75,6 +78,20 @@ function show_customize_posts_dependency_failure() {
 		<?php esc_html_e( 'Custom Customizer Postmeta requires the ', 'custom-customizer-postmeta');
 		echo '<a href="https://github.com/xwp/wp-customize-posts">Customize Posts</a>';
 		esc_html_e( ' plugin to be active.', 'custom-customizer-postmeta' ); ?>
+		</p>
+	</div>
+	<?php
+}
+
+/**
+ * Show invalid JSON failure
+ */
+function show_invalid_json_failure() {
+	?>
+	<div class="error">
+		<p>
+			<?php esc_html_e( 'Invalid JSON file fed to Custom Customizer Postmeta. Check JSON at', 'custom-customizer-postmeta' );
+			echo '<a target="_blank" href="http://jsonlint.com/">JSONLint.com</a>.'; ?>
 		</p>
 	</div>
 	<?php
