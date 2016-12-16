@@ -108,7 +108,7 @@
     "plural_meta_key" : "gpp_slide_videos",
     "meta_name" : "Featured Video Embed Code",
     "post_types" : [ "slide" ],
-    "field_type" : "post_editor",
+    "field_type" : "text",
     "display_priority" : 260
   },
   "gpp_slide_video_bg" : {
