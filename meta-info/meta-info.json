@@ -47,13 +47,24 @@
     "field_type" : "text",
     "display_priority" : 240
   },
-  "gpp_slide_position_hor" : {
-    "meta_key" : "gpp_slide_position_hor",
-    "plural_meta_key" : "gpp_slide_position_hors",
-    "meta_name" : "Content Horizontal Position",
-    "post_types" : [ "post" ],
+  "gpp_slide_content" : {
+    "meta_key" : "gpp_slide_content",
+    "plural_meta_key" : "gpp_slide_contents",
+    "meta_name" : "Hide content on slide image?",
+    "post_types" : [ "slide" ],
+    "field_type" : "checkbox",
+    "display_priority" : 200,
+    "input_args" : {
+      "default" : 0
+    }
+  },
+  "gpp_slide_position_vert" : {
+    "meta_key" : "gpp_slide_position_vert",
+    "plural_meta_key" : "gpp_slide_position_verts",
+    "meta_name" : "Content Vertial Position",
+    "post_types" : [ "slide" ],
     "field_type" : "select",
-    "display_priority" : 220,
+    "display_priority" : 210,
     "input_args" : {
       "choices" : [
         { "text":"Left", "value":"left" },
@@ -62,23 +73,65 @@
       ]
     }
   },
-  "gpp_slide_content" : {
-    "meta_key" : "gpp_slide_content",
-    "plural_meta_key" : "gpp_slide_contents",
-    "meta_name" : "Hide content on slide image?",
-    "post_types" : [ "post" ],
-    "field_type" : "checkbox",
+  "gpp_slide_position_hor" : {
+    "meta_key" : "gpp_slide_position_hor",
+    "plural_meta_key" : "gpp_slide_position_hors",
+    "meta_name" : "Content Horizontal Position",
+    "post_types" : [ "slide" ],
+    "field_type" : "select",
     "display_priority" : 220,
     "input_args" : {
-      "default" : 1
+      "choices" : [
+        { "text":"Top", "value":"top" },
+        { "text":"Center", "value":"center" },
+        { "text":"Bottom", "value":"bottom" }
+      ]
     }
+  },
+  "gpp_slide_link" : {
+    "meta_key" : "gpp_slide_link",
+    "plural_meta_key" : "gpp_slide_links",
+    "meta_name" : "Alternate Link",
+    "post_types" : [ "slide" ],
+    "field_type" : "text",
+    "display_priority" : 240
   },
   "gpp_slide_video" : {
     "meta_key" : "gpp_slide_video",
     "plural_meta_key" : "gpp_slide_videos",
     "meta_name" : "Featured Video Embed Code",
-    "post_types" : [ "post" ],
+    "post_types" : [ "slide" ],
     "field_type" : "post_editor",
-    "display_priority" : 240
+    "display_priority" : 260
+  },
+  "gpp_slide_video_bg" : {
+    "meta_key" : "gpp_slide_video_bg",
+    "plural_meta_key" : "gpp_slide_video_bgs",
+    "meta_name" : "Background YouTube Video URL",
+    "post_types" : [ "slide" ],
+    "field_type" : "text",
+    "display_priority" : 280
+  },
+  "display-img-checkbox" : {
+    "meta_key" : "display-img-checkbox",
+    "plural_meta_key" : "display-img-checkboxes",
+    "meta_name" : "Hide featured image on page?",
+    "post_types" : [ "page" ],
+    "field_type" : "checkbox",
+    "display_priority" : 200,
+    "input_args" : {
+      "default" : 0
+    }
+  },
+  "title-img-checkbox" : {
+    "meta_key" : "title-img-checkbox",
+    "plural_meta_key" : "title-img-checkboxes",
+    "meta_name" : "Display title text on featured image?",
+    "post_types" : [ "page" ],
+    "field_type" : "checkbox",
+    "display_priority" : 210,
+    "input_args" : {
+      "default" : 0
+    }
   }
 }
