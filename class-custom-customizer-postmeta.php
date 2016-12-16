@@ -93,11 +93,23 @@ class ACCP_Custom_Customizer_Postmeta {
 	public $display_priority;
 
   /**
+	 * Transport method
+	 *
+	 * @var string
+	 */
+	public $transport;
+
+  /**
 	 * Post meta constructor.
 	 *
 	 * @access public
 	 */
   public function __construct( $args = array() ){
+
+    // Set default variable values
+    $this->transport = 'refresh';
+
+    // Set variable values
     $keys = array_keys( get_object_vars( $this ) );
 		foreach ( $keys as $key ) {
 			if ( isset( $args[ $key ] ) ) {
@@ -145,7 +157,7 @@ class ACCP_Custom_Customizer_Postmeta {
     add_action( 'customize_posts_register_meta', function ( \WP_Customize_Posts $customize_posts ) {
       foreach ( get_post_types_by_support( $this->meta_key ) as $post_type ) {
         $customize_posts->register_post_type_meta( $post_type, $this->meta_key, array(
-          'transport' => 'postMessage',
+          'transport' => $this->transport,
           'sanitize_callback' => function( $value ) {
             return wp_kses_post( $value );
           },
