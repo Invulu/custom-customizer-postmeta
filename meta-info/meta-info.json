@@ -73,9 +73,9 @@
     "display_priority" : 210,
     "input_args" : {
       "choices" : [
-        { "text":"Left", "value":"left" },
-        { "text":"Middle", "value":"middle" },
-        { "text":"Right", "value":"right" }
+        { "text":"Top", "value":"top" },
+        { "text":"Center", "value":"center" },
+        { "text":"Bottom", "value":"bottom" }
       ]
     }
   },
@@ -88,9 +88,9 @@
     "display_priority" : 220,
     "input_args" : {
       "choices" : [
-        { "text":"Top", "value":"top" },
-        { "text":"Center", "value":"center" },
-        { "text":"Bottom", "value":"bottom" }
+        { "text":"Left", "value":"left" },
+        { "text":"Middle", "value":"middle" },
+        { "text":"Right", "value":"right" }
       ]
     }
   },
