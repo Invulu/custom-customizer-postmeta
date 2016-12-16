@@ -5,7 +5,8 @@
     "meta_name" : "Member Title",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 200
+    "display_priority" : 200,
+    "transport" : "postMessage"
   },
   "gpp_team_link" : {
     "meta_key" : "gpp_team_link",
@@ -13,7 +14,8 @@
     "meta_name" : "Personal Link",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 210
+    "display_priority" : 210,
+    "transport" : "postMessage"
   },
   "gpp_team_email" : {
     "meta_key" : "gpp_team_email",
@@ -21,7 +23,8 @@
     "meta_name" : "Email Address",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 220
+    "display_priority" : 220,
+    "transport" : "postMessage"
   },
   "gpp_team_phone" : {
     "meta_key" : "gpp_team_phone",
@@ -29,7 +32,8 @@
     "meta_name" : "Phone Number",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 230
+    "display_priority" : 230,
+    "transport" : "postMessage"
   },
   "gpp_team_twitter" : {
     "meta_key" : "gpp_team_twitter",
@@ -37,7 +41,8 @@
     "meta_name" : "Twitter User",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 240
+    "display_priority" : 240,
+    "transport" : "postMessage"
   },
   "gpp_team_linkedin" : {
     "meta_key" : "gpp_team_linkedin",
@@ -45,7 +50,8 @@
     "meta_name" : "LinkedIn Profile URL",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 240
+    "display_priority" : 240,
+    "transport" : "postMessage"
   },
   "gpp_slide_content" : {
     "meta_key" : "gpp_slide_content",
@@ -61,7 +67,7 @@
   "gpp_slide_position_vert" : {
     "meta_key" : "gpp_slide_position_vert",
     "plural_meta_key" : "gpp_slide_position_verts",
-    "meta_name" : "Content Vertial Position",
+    "meta_name" : "Content Vertical Position",
     "post_types" : [ "slide" ],
     "field_type" : "select",
     "display_priority" : 210,
@@ -94,7 +100,8 @@
     "meta_name" : "Alternate Link",
     "post_types" : [ "slide" ],
     "field_type" : "text",
-    "display_priority" : 240
+    "display_priority" : 240,
+    "transport" : "postMessage"
   },
   "gpp_slide_video" : {
     "meta_key" : "gpp_slide_video",

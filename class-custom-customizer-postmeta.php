@@ -273,6 +273,7 @@ class ACCP_Custom_Customizer_Postmeta {
     			}
     			postId = parseInt( matches[2] );
     			partialId = setting.id;
+          console.log(partialId);
     			ensuredPartial = api.selectiveRefresh.partial( partialId );
     			if ( ensuredPartial ) {
     				return ensuredPartial;
