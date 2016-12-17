@@ -130,7 +130,6 @@ class ACCP_Custom_Customizer_Postmeta {
     } else {
       $this->control_constructor_type = 'dynamic';
     }
-    error_log($this->control_constructor_type);
     $this->setting_id_pattern = '^postmeta\[(.+?)]\[(\d+)]\['.$this->meta_key.']$';
     // Set post type (currently only supporting 1 type, revisit this)
     $this->current_post_type = $this->post_types[0];
@@ -142,9 +141,7 @@ class ACCP_Custom_Customizer_Postmeta {
 
     // If checkbox input, set default
     if ( $this->field_type == 'checkbox' ) {
-      error_log($this->input_args['default']);
       $this->checkbox_default = $this->input_args['default'] ? 1 : 0;
-      error_log($this->checkbox_default);
     }
 
     // Make everything happen
