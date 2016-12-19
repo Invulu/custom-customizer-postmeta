@@ -14,8 +14,7 @@
     "meta_name" : "Personal Link",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 210,
-    "transport" : "postMessage"
+    "display_priority" : 210
   },
   "gpp_team_email" : {
     "meta_key" : "gpp_team_email",
@@ -23,8 +22,7 @@
     "meta_name" : "Email Address",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 220,
-    "transport" : "postMessage"
+    "display_priority" : 220
   },
   "gpp_team_phone" : {
     "meta_key" : "gpp_team_phone",
@@ -41,8 +39,7 @@
     "meta_name" : "Twitter User",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 240,
-    "transport" : "postMessage"
+    "display_priority" : 240
   },
   "gpp_team_linkedin" : {
     "meta_key" : "gpp_team_linkedin",
@@ -50,8 +47,7 @@
     "meta_name" : "LinkedIn Profile URL",
     "post_types" : [ "team" ],
     "field_type" : "text",
-    "display_priority" : 240,
-    "transport" : "postMessage"
+    "display_priority" : 240
   },
   "gpp_slide_content" : {
     "meta_key" : "gpp_slide_content",
