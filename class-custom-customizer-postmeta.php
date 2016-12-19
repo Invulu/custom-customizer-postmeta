@@ -130,6 +130,7 @@ class ACCP_Custom_Customizer_Postmeta {
     } else {
       $this->control_constructor_type = 'dynamic';
     }
+
     $this->setting_id_pattern = '^postmeta\[(.+?)]\[(\d+)]\['.$this->meta_key.']$';
     // Set post type (currently only supporting 1 type, revisit this)
     $this->current_post_type = $this->post_types[0];
@@ -141,13 +142,14 @@ class ACCP_Custom_Customizer_Postmeta {
 
     // If checkbox input, set default
     if ( $this->field_type == 'checkbox' ) {
+
       $this->checkbox_default = $this->input_args['default'] ? 1 : 0;
+
     }
 
     // Make everything happen
     $this->add_post_type_support();
     $this->register_postmeta();
-    $this->inject_into_loop();
     $this->add_editor_control();
     $this->register_partial();
     $this->recognize_partial();
@@ -173,20 +175,6 @@ class ACCP_Custom_Customizer_Postmeta {
         ) );
       }
     } );
-  }
-
-  // Inject the preamble each post in The Loop.
-  function inject_into_loop(){
-    add_action( 'the_post', function( $post, $wp_query ) {
-      if ( $wp_query->is_main_query() && ! $wp_query->is_singular() && $wp_query->in_the_loop ) {
-        $class = sprintf( 'post-%s post-%s-%d', $this->meta_key, $post->ID );
-        ?>
-        <section class="<?php echo esc_attr( $class ) ?>">
-          <?php echo wp_kses_post( get_post_meta( $post->ID, $this->meta_key, true ) ) ?>
-        </section>
-        <?php
-      }
-    }, 10, 2 );
   }
 
   // Add the editor control for the preamble.
