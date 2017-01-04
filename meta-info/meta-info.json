@@ -102,7 +102,7 @@
   "gpp_slide_video" : {
     "meta_key" : "gpp_slide_video",
     "plural_meta_key" : "gpp_slide_videos",
-    "meta_name" : "Featured Video Embed Code",
+    "meta_name" : "Featured Video URL",
     "post_types" : [ "slide" ],
     "field_type" : "text",
     "display_priority" : 260
